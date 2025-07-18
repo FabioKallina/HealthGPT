@@ -7,6 +7,8 @@ import "../css/Home.css";
 import logo1 from "../images/logo.png";
 import { FaCog } from "react-icons/fa";
 
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+
 const Home = () => {
   const [message, setMessage] = useState("");
   const [allChats, setAllChats] = useState([]);
@@ -30,7 +32,7 @@ const Home = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "http://localhost:3000/api/chat",
+        `${BASE_URL}/api/chat`,
         {
           messages: updatedChat,
         },
@@ -54,7 +56,7 @@ const Home = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await axios.get("http://localhost:3000/api/chat/chats", {
+      const res = await axios.get(`${BASE_URL}/api/chat/chats`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -71,7 +73,7 @@ const Home = () => {
   const handleDeleteChat = async (chatId, index) => {
     const token = localStorage.getItem("token");
     try {
-      await axios.delete(`http://localhost:3000/api/chat/${chatId}`, {
+      await axios.delete(`${BASE_URL}/api/chat/${chatId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
